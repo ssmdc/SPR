@@ -1,0 +1,44 @@
+// Define motor driver pins
+#define ENA 14   // D5 on NodeMCU - Speed control
+#define IN1 15   // D8 - Direction 1
+#define IN2 13   // D7 - Direction 2
+
+void setup() {
+  // Set motor pins as output
+  pinMode(ENA, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+  Serial.begin(115200);
+  Serial.println("Motor running...");
+}
+
+void loop() {
+  // Run motor forward
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 800); // speed from 0 to 1023
+  Serial.println("Motor Forward");
+  delay(3000); // run 3 seconds
+
+  // Stop motor
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 0);
+  Serial.println("Motor Stop");
+  delay(2000); // wait 2 seconds
+
+  // Run motor backward
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, 800); // speed
+  Serial.println("Motor Backward");
+  delay(3000); // run 3 seconds
+
+  // Stop again
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, 0);
+  Serial.println("Motor Stop");
+  delay(2000);
+}
