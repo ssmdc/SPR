@@ -1,0 +1,25 @@
+#define DIR_PIN 25
+#define STEP_PIN 26
+
+void setup() {
+  pinMode(DIR_PIN, OUTPUT);
+  pinMode(STEP_PIN, OUTPUT);
+
+  digitalWrite(DIR_PIN, HIGH); // Direction: HIGH or LOW
+}
+
+void loop() {
+  // Rotate motor 1 revolution (e.g., 200 steps for 1.8°/step motor)
+  for(int i = 0; i < 200; i++) {
+    digitalWrite(STEP_PIN, HIGH);
+    delayMicroseconds(1000); // step speed
+    digitalWrite(STEP_PIN, LOW);
+    delayMicroseconds(1000);
+  }
+
+  delay(1000);
+
+  // Change direction
+  digitalWrite(DIR_PIN, !digitalRead(DIR_PIN));
+  delay(1000);
+}
