@@ -1,0 +1,30 @@
+// SK GROUPS //
+#include <Stepper.h>
+
+const int stepsPerRevolution = 200;  // Steps per full rotation
+const int stepsPer60Degrees = stepsPerRevolution / 6;  // 60 degrees = 1/6 of a revolution
+
+// initialize the stepper library on pins 8 through 11:
+Stepper myStepper(stepsPerRevolution, 8, 9, 10, 11);
+
+void setup() {
+  // Nothing needed here
+}
+
+void loop() {
+  // read the sensor value:
+  int sensorReading = analogRead(A1);
+  // map it to a range from 0 to 100:
+  int motorSpeed = map(sensorReading, 0, 1023, 0, 100);
+
+  if (motorSpeed > 0) {
+    // set motor speed
+    myStepper.setSpeed(motorSpeed);
+
+    // move 60 degrees (33 steps)
+    myStepper.step(stepsPer60Degrees);
+
+    // stop for 5 seconds
+    delay(5000);
+  }
+}
